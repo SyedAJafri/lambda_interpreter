@@ -3,7 +3,7 @@ start
   = expr
 
 expr
-  = var / lambda
+  = var / function
   // / function / app
 
 
@@ -17,16 +17,22 @@ var
   }
 
 lambda =
-  "lambda" {return "lambda()"}
+  "lambda" {return "lambda"}
 
 function
-  = lambda whitespace 
+  = l:lambda whitespace v:var whitespace* dot whitespace* s:scope {return l + " " + v + "." + "scope(" + s + ")"}
+
+scope
+  = s:expr
 
 whitespace
-  = '\s'
+  = ' ' / '\n' / '\t'
 
 scope
   = expr
+
+dot =
+  "."
 
 additive
   = left:multiplicative "+" right:additive { return left + right; }
