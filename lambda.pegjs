@@ -1,12 +1,11 @@
-
+//ignore trailing and leading whitespace
 start
-  = expr
+  = whitespace* e:expr whitespace* {return e}
 
 expr
-  = var / function
-  // / function / app
-
-
+  = v:var {return "expr(" + v + ")"}
+  / f:function {return "expr(" + f +")"}
+  / app
 
 var
   //any sequence of letters may be a variable except the sequence lambda
@@ -16,35 +15,28 @@ var
     return "var(" + chars.join("") +")" //return var name
   }
 
+//TODO allow "λ"
 lambda =
-  "lambda" {return "lambda"}
+  "lambda" {return "λ"}
 
 function
-  = l:lambda whitespace v:var whitespace* dot whitespace* s:scope {return l + " " + v + "." + "scope(" + s + ")"}
+  = l:lambda whitespace v:var whitespace* dot whitespace* s:scope 
+    {return l + " " + v + "." + "scope(" + s + ")"}
 
 scope
-  = s:expr
+  = s:expr {return s}
+
+//TODO I don't think this is always true
+app
+  = leftparen e1:expr rightparen leftparen e2:expr rightparen {return "app(" + e1 + " , " + e2 + ")" }
 
 whitespace
   = ' ' / '\n' / '\t'
 
-scope
-  = expr
-
 dot =
   "."
 
-additive
-  = left:multiplicative "+" right:additive { return left + right; }
-  / multiplicative
-
-multiplicative
-  = left:primary "*" right:multiplicative { return left * right; }
-  / primary
-
-primary
-  = integer
-  / "(" additive:additive ")" { return additive; }
-
-integer "integer"
-  = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
+leftparen
+  = "("
+rightparen
+  = ")"
