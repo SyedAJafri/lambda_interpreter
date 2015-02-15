@@ -26,7 +26,12 @@ app(expr(λ var(x).scope(expr(var(y)))) , expr(var(z)))
 
 
 TODO:
-*Make an AST (abstract syntax tree)
-*Well formed function
-*beta reduction function
-*make a GUI to interact with or some embbed html command like tool
+
+* Make an AST (abstract syntax tree)
+
+* Well formed function
+
+* Beta reduction function
+
+* Make a GUI to interact with or some embbed html command like tool.
+
