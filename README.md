@@ -3,15 +3,26 @@
 An online lambda calculus tool that is still in development.
 Currently just spitting it some info.
 
+lambda.pegjs:
+
+* The grammar for parsing the lambda_calculus. Returns an Abstract Syntax Tree.
+
+lambda_util.js:
+
+* ast_string: Takes an Abstract Syntax Tree and forms a string by pre-order traversal.
+
 Example:
 
 example_script.js:
 ````
 ...
-console.log(ast_string(lambda.parse("x")));
-console.log(ast_string(lambda.parse("lambda x. y")));
-console.log(ast_string(lambda.parse("   (lambda x. y)(z)   ")));
-...
+ast1 = lambda_peg.parse("x");
+ast2 = lambda_peg.parse("lambda x. y");
+ast3 = lambda_peg.parse("   (lambda x. y)(z)   ");
+
+console.log(lambda_util.ast_string(ast1));
+console.log(lambda_util.ast_string(ast2));
+console.log(lambda_util.ast_string(ast3));
 ````
 The command:
 ````
@@ -25,7 +36,7 @@ app(expr(λ var(x).scope(expr(var(y)))) , expr(var(z)))
 ````
 
 
-TODO:
+TODO list:
 
 * Make an AST (abstract syntax tree)
 

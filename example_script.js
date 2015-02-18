@@ -1,7 +1,9 @@
 //run with node
-//TODO read about module.exports
 lambda_util = require("./lambda_util");
 lambda_peg = require("./lambda");
-console.log(lambda_util.ast_string(lambda_peg.parse("x")));
-console.log(lambda_util.ast_string(lambda_peg.parse("lambda x. y")));
-console.log(lambda_util.ast_string(lambda_peg.parse("   (lambda x. y)(z)   ")));
+ast1 = lambda_peg.parse("x");
+ast2 = lambda_peg.parse("lambda x. y");
+ast3 = lambda_peg.parse("   (lambda x. y)(z)   ");
+console.log(lambda_util.ast_string(ast1));
+console.log(lambda_util.ast_string(ast2));
+console.log(lambda_util.ast_string(ast3));
