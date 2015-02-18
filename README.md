@@ -39,11 +39,9 @@ ast(expr(app(expr(function(λvar(x).(expr(var(y))))) , expr(var(z)))))
 
 TODO list:
 
-* Make an AST (abstract syntax tree)
-
-* Well formed function
-
 * Beta reduction function
+
+* Well formed function 
 
 * Use [JointJS](http://jointjs.com/tutorial) to form a visual graph of the AST
 
