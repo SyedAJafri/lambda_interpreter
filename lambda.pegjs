@@ -1,34 +1,39 @@
 //ignore trailing and leading whitespace
 start
-  = whitespace* e:expr whitespace* {return e}
+  = whitespace* e:expr whitespace* {return {type:'ast', value:e}} //
 
 expr
-  = v:var {return "expr(" + v + ")"}
-  / f:function {return "expr(" + f +")"}
-  / app
+  = v:var {return {type:'expr', value:v}}
+  / f:function {return {type:'expr', value:f}}
+  / a:app {return {type:'expr', value:a}}
 
 var
   //any sequence of letters may be a variable except the sequence lambda
   = chars:[a-z|A-Z]+  
   & {if (chars.join("") == "lambda") { return false } else { return true }}
   {
-    return "var(" + chars.join("") +")" //return var name
+    return {type:'var', value:chars.join("")}
   }
 
 //TODO allow "λ"
 lambda =
-  "lambda" {return "λ"}
+  "lambda" //{return "λ"}
 
 function
   = l:lambda whitespace v:var whitespace* dot whitespace* s:scope 
-    {return l + " " + v + "." + "scope(" + s + ")"}
+    {return {
+    type:'function', value: {param:v, scope:s}
+    } }
 
 scope
-  = s:expr {return s}
+  = s:expr {return {type:'scope', value:s}}
 
 //TODO I don't think this is always true
 app
-  = leftparen e1:expr rightparen leftparen e2:expr rightparen {return "app(" + e1 + " , " + e2 + ")" }
+  = leftparen e1:expr rightparen leftparen e2:expr rightparen 
+    {return {
+    type:'app', value:{left:e1, right:e2}
+    } }
 
 whitespace
   = ' ' / '\n' / '\t'
