@@ -1,7 +1,6 @@
 # lambda_interpreter
 
 An online lambda calculus tool that is still in development.
-Currently just spitting it some info.
 
 lambda.pegjs:
 
