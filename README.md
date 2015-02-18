@@ -7,11 +7,11 @@ Example:
 
 example_script.js:
 ````
-lambda = require("./lambda");
-console.log(lambda.parse("x"));
-console.log(lambda.parse("lambda x. y"));
-console.log(lambda.parse("   (lambda x. y)(z)"));
-
+...
+console.log(ast_string(lambda.parse("x")));
+console.log(ast_string(lambda.parse("lambda x. y")));
+console.log(ast_string(lambda.parse("   (lambda x. y)(z)   ")));
+...
 ````
 The command:
 ````
@@ -32,6 +32,8 @@ TODO:
 * Well formed function
 
 * Beta reduction function
+
+* Use [JointJS](http://jointjs.com/tutorial) to form a visual graph of the AST
 
 * Make a GUI to interact with or some embbed html command like tool.
 
