@@ -15,9 +15,9 @@ var
     return {type:'var', value:chars.join("")}
   }
 
-//TODO allow "λ"
 lambda =
-  "lambda" //{return "λ"}
+  "lambda" 
+  / "λ"
 
 function
   = l:lambda whitespace v:var whitespace* dot whitespace* s:scope 

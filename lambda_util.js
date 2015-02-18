@@ -3,6 +3,7 @@ var ast_string = function(ast){
 		//console.log("type: " + type)
 		switch(type){
 			case 'ast':
+				return ast_string(ast.value);
 			case 'expr':
 				return ast.type + "(" + ast_string(ast.value) + ")";
 			case 'app':
@@ -11,7 +12,7 @@ var ast_string = function(ast){
 			case 'var':
 				return "var("+ast.value+")";
 			case 'function': 
-				return ast.type + "(λ" + ast_string(ast.value.param) + ".(" + ast_string(ast.value.scope) + " ))";
+				return ast.type + "(λ" + ast_string(ast.value.param) + ".(" + ast_string(ast.value.scope) + "))";
 			case 'scope':
 				return ast_string(ast.value);
 			default:
