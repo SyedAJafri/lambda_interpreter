@@ -8,12 +8,14 @@ lambda_util = require("./lambda_util");
 lambda_peg = require("./lambda");
 
 app.post('/myaction', function(req, res) {
-  html = '<p>You sent the string: "' + req.body.lambda_text + '".</p>';
+  lambda_text = req.body.lambda_text
+  html = '<p>"' + lambda_text + '"';
   try{
-  	ast = lambda_peg.parse(req.body.lambda_text);
-  	html += "<p>The AST string is: " + lambda_util.ast_string(ast) + "</p>";
-  }catch(SyntaxError){
-  	html += "<p>Your lambda calculus expression is ill-formed.</p>";
+  	ast = lambda_peg.parse(lambda_text);
+  	html += " is a well-formed expression. The AST string is: " + lambda_util.ast_string(ast) + "</p>";
+  }catch(err){
+  	html += " is an ill-formed expression: " + err.message + "</p>";
+  	console.log("lambda_text: " + lambda_text)
   }
 
   res.send(html);
