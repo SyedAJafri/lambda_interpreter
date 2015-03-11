@@ -37,7 +37,7 @@ ast(expr(app(expr(function(λvar(x).(expr(var(y))))) , expr(var(z)))))
 ````
 
 
-TODO list:
+## TODO list:
 
 * Beta reduction function
 
@@ -47,3 +47,6 @@ TODO list:
 
 * Make a GUI to interact with or some embbed html command like tool.
 
+## Update
+
+Guess I gotta learn Node and all that web stuff to post this online so it might take a while.
