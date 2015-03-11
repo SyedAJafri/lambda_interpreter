@@ -37,16 +37,18 @@ ast(expr(app(expr(function(λvar(x).(expr(var(y))))) , expr(var(z)))))
 ````
 
 
-## TODO list:
+## To do list
 
 * Beta reduction function
 
 * Well formed function 
 
-* Use [JointJS](http://jointjs.com/tutorial) to form a visual graph of the AST
+* Use [JointJS](http://jointjs.com/tutorial) to form a visual graph of the AST.
 
 * Make a GUI to interact with or some embbed html command like tool.
 
+* Separate simply typed lambda calculus tool
+
 ## Update
 
-Guess I gotta learn Node and all that web stuff to post this online so it might take a while.
+I don't have much experience with web stuff. So I have to learn Node and all that web stuff to post this online so it might take a while.
