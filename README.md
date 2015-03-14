@@ -51,4 +51,15 @@ ast(expr(app(expr(function(λvar(x).(expr(var(y))))) , expr(var(z)))))
 
 ## Update
 
-I don't have much experience with web stuff. So I have to learn Node and all that web stuff to post this online so it might take a while.
+I don't have much experience with web stuff so this may take me a while.
+
+Idea so far:
+use socket.io
+
+When text box onChangedText event{
+	parse text to server
+	server forms ast from text unless invalid then send "invalid text"
+	send json ast to client
+	client forms joint.js ast visual representation
+}
+

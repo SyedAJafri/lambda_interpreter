@@ -1,0 +1,50 @@
+<html>
+	<body>
+		<style type="text/css">
+				#section {
+				    width:350px;
+				    float:left;
+				    padding:10px; 
+				}
+				#footer {
+					    clear:both;
+					    text-align:center;
+					    padding:5px; 
+				}
+		</style>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<textarea cols="50" rows="2" id="lambda_text"></textarea>
+		<div id="parsed_string">
+		</div>
+
+		<script>
+			var socket = io(); //loads socket.io-client. exposes a io global and connects
+
+			//
+			//https://stackoverflow.com/questions/7105997/javascript-change-event-on-input-element-fires-on-only-losing-focus/7106392#7106392
+			(function () {
+				    var oldLambda_text;
+
+				    $('#lambda_text').bind('DOMAttrModified textInput input change keypress paste focus', function () {
+				        var lambda_text = this.value;
+				        if (lambda_text !== oldLambda_text) {
+				            oldLambda_text = lambda_text;
+							socket.emit('lambda text changed', $('#lambda_text').val());
+				        }
+				    });
+			}());
+
+			//Only sends when out of focus
+			// $('#lambda_text').change(function(){
+			// 	console.log("sending form");
+			// 	socket.emit('lambda text changed', $('#lambda_text').val());
+			// 	return false;
+			// });
+			socket.on('lambda text changed', function(msg){
+				console.log(msg);
+				$('#parsed_string').append($('<li>').text(msg.ast_string));
+			})
+		</script>
+	</body>
+</html>
