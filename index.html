@@ -14,10 +14,14 @@
 		</style>
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-		<textarea cols="50" rows="2" id="lambda_text"></textarea>
-		<div id="parsed_string">
-		</div>
-
+	    <link rel="canonical" href="http://www.jointjs.com/" />
+	    <script src="joint.js"></script>
+		<script src="ast_joint.js"></script>
+		<body>
+			<textarea cols="50" rows="2" id="lambda_text"></textarea>
+			<div id="parsed_string"></div>
+	      	<div class="paper" id="myholder"/></div>
+	     </body>
 		<script>
 			var socket = io(); //loads socket.io-client. exposes a io global and connects
 
@@ -41,9 +45,10 @@
 			// 	socket.emit('lambda text changed', $('#lambda_text').val());
 			// 	return false;
 			// });
-			socket.on('lambda text changed', function(msg){
-				console.log(msg);
-				$('#parsed_string').append($('<li>').text(msg.ast_string));
+			socket.on('lambda text changed', function(content){
+				console.log(content.ast_string);
+				$('#parsed_string').append($('<li>').text(content.ast_string));
+				draw_joint_ast(content.ast);
 			})
 		</script>
 	</body>

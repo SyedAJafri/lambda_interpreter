@@ -17,8 +17,20 @@ lambda_peg = require("./lambda");
 
 app.get('/', function(req, res){
   //res.send('<h1>hello world</h1>');
-  res.sendFile(__dirname +'/index.html');
+  console.log("app.get / giving index.html");
+  res.sendFile(__dirname + '/index.html');
 });
+
+app.get("/ast_joint.js", function(req, res){
+  console.log("app.get /ast_joint.js");
+  res.sendFile(__dirname + '/ast_joint.js');
+});
+
+app.get("/joint.js", function(req, res){
+  console.log("app.get /joint.js");
+  res.sendFile(__dirname + '/joint.js');
+});
+
 
 io.on('connection', function(socket){ //listen for incoming sockets
   console.log('a user connected');
