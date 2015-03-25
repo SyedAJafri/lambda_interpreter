@@ -31,6 +31,10 @@ app.get("/joint.js", function(req, res){
   res.sendFile(__dirname + '/joint.js');
 });
 
+app.get("/joint.css", function(req, res){
+  console.log("app.get /joint.css");
+  res.sendFile(__dirname + '/joint.css');
+});
 
 io.on('connection', function(socket){ //listen for incoming sockets
   console.log('a user connected');

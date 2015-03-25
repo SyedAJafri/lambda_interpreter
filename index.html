@@ -1,5 +1,5 @@
 <html>
-	<body>
+	<head>
 		<style type="text/css">
 				#section {
 				    width:350px;
@@ -11,18 +11,46 @@
 					    text-align:center;
 					    padding:5px; 
 				}
+				textarea {
+				    width: 100%;
+				    min-width: 100%;
+				    max-width: 100%;
+				}
+
 		</style>
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	    <link rel="canonical" href="http://www.jointjs.com/" />
+	    <link rel="stylesheet" href="joint.css" />
 	    <script src="joint.js"></script>
 		<script src="ast_joint.js"></script>
-		<body>
-			<textarea cols="50" rows="2" id="lambda_text"></textarea>
-			<div id="parsed_string"></div>
-	      	<div class="paper" id="myholder"/></div>
-	     </body>
+	</head>
+	<body>
+
+		<textarea cols="100" rows="2" id="lambda_text"></textarea>
+		<div id="parsed_string"></div>
+      	<div class="paper" id="myholder"/></div>
+     
 		<script>
+			var graph = new joint.dia.Graph;
+
+			//wait for #myholder to load then assign it to el
+			$( document ).ready(function() {
+				console.log("ready");
+				var paper = new joint.dia.Paper({
+				    el: $('#myholder'),
+				    width: $(window).width(),
+				    height: 1000,
+				    model: graph,
+				    gridSize: 1
+				});
+			});
+			Position = {
+				LEFT : 0,
+				RIGHT : 1,
+				DIRECT : 2,
+				HEAD : 3
+			}	
 			var socket = io(); //loads socket.io-client. exposes a io global and connects
 
 			//
@@ -47,9 +75,16 @@
 			// });
 			socket.on('lambda text changed', function(content){
 				console.log(content.ast_string);
-				$('#parsed_string').append($('<li>').text(content.ast_string));
-				draw_joint_ast(content.ast);
-			})
+				//$('#parsed_string').append($('<li>').text(content.ast_string));
+				if(content.ast.type != "ill_formed_ast"){
+					graph.clear();
+					console.log("drawing ast");
+					draw_joint_ast(content.ast, null, Position.HEAD, 1);
+				}else{
+					console.log("Invalid lambda expression. Displaying previous valid ast.");
+				}
+				//draw_example();
+			});
 		</script>
 	</body>
 </html>
