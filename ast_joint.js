@@ -48,26 +48,30 @@ var draw_joint_ast = function(ast, parent, position, displaceRatio){
 			var elem = new joint.shapes.basic.Rect({
 			    position: { x: windowWidth/2  - rectWidth/2, y: 0 },
 			    size: { width: rectWidth, height: 30 },
-			    attrs: { rect: { fill: 'blue' }, text: { text:ast.type, fill: 'black' } }
+			    attrs: { rect: { fill: 'blue' }, text: { text:ast.type, fill: 'black' } },
+			    ast: ast
 			});
 			graph.addCell(elem)
 			break;
 		case 'expr':
 		var elem = new joint.shapes.basic.Rect({
 		    size: { width: rectWidth, height: 30 },
-		    attrs: { rect: { fill: 'red' }, text: { text:ast.type, fill: 'black' } }
+		    attrs: { rect: { fill: 'red' }, text: { text:ast.type, fill: 'black' } },
+			ast: ast
 		});
 		break;
 		case 'app':
 		var elem = new joint.shapes.basic.Rect({
 		    size: { width: rectWidth, height: 30 },
-		    attrs: { rect: { fill: 'orange' }, text: { text:ast.type, fill: 'black' } }
+		    attrs: { rect: { fill: 'orange' }, text: { text:ast.type, fill: 'black' } },
+			ast: ast
 		});
 		break;
 		case 'var':
 		var elem = new joint.shapes.basic.Rect({
 		    size: { width: rectWidth, height: 30 },
-		    attrs: { rect: { fill: 'green' }, text: { text:ast.type, fill: 'black' } }
+		    attrs: { rect: { fill: 'green' }, text: { text:ast.type, fill: 'black' } },
+			ast: ast
 		});
 		break;
 		case 'function': 

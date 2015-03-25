@@ -44,6 +44,32 @@
 				    model: graph,
 				    gridSize: 1
 				});
+
+			    var infoBlock = new joint.shapes.basic.Rect({
+			    	position: {x:0, y:0},
+			        size: { width: 300, height: 100},
+			        attrs: { rect: { fill: 'light-blue' }, text: { text: 'really long textreally long tex', fill: 'black' } }
+			    });
+
+				paper.on('cell:mouseover', function(cellView) {
+					ast = cellView.model.get("ast");
+					pos = cellView.model.get("position");
+					if(pos.x + 40 + 300 < $(window).width()){
+						//place on the left
+						infoBlock.get("position").x = pos.x + 40 ;
+					}else{
+						//too far left place on the right instead
+						infoBlock.get("position").x = pos.x - 300 - 10;
+					}
+					infoBlock.get("position").y = pos.y;
+					graph.addCell(infoBlock)
+					console.log(cellView);
+    			});
+				paper.on('cell:mouseout', function(cellView) {
+					console.log("removing info block")
+					infoBlock.remove();
+    			});
+
 			});
 			Position = {
 				LEFT : 0,
@@ -53,7 +79,6 @@
 			}	
 			var socket = io(); //loads socket.io-client. exposes a io global and connects
 
-			//
 			//https://stackoverflow.com/questions/7105997/javascript-change-event-on-input-element-fires-on-only-losing-focus/7106392#7106392
 			(function () {
 				    var oldLambda_text;
@@ -85,6 +110,10 @@
 				}
 				//draw_example();
 			});
+
+
+
+
 		</script>
 	</body>
 </html>
